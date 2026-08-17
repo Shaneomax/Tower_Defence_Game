@@ -12,6 +12,7 @@ public class Enemy : MonoBehaviour
     {
         _agent = GetComponent<NavMeshAgent>();
         _agent.updateRotation = false;
+        _agent.avoidancePriority =(int)_agent.speed * 10;
     }
 
     private void Update()
@@ -20,6 +21,8 @@ public class Enemy : MonoBehaviour
         {
             _agent.SetDestination(GetNextWaypoint());
         }
+
+        FaceTarget(_agent.steeringTarget);
     }
 
     private Vector3 GetNextWaypoint()

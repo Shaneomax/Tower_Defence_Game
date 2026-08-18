@@ -5,7 +5,6 @@ public class Enemy : MonoBehaviour
 {
     private NavMeshAgent _agent;
     [SerializeField] private Transform[] _wayPoints;
-    [SerializeField]private WaypointManager _waypointManager;
     private int _wayPointIndex;
     private float _turnSpeed = 10f;
 
@@ -18,7 +17,7 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
-       _wayPoints = _waypointManager.GetWaypoints();
+       _wayPoints = FindFirstObjectByType<WaypointManager>().GetWaypoints();
     }
 
     private void Update()
@@ -43,6 +42,7 @@ public class Enemy : MonoBehaviour
 
         return targetPoint;
     }
+
 
     private void FaceTarget(Vector3 newTarget)
     {

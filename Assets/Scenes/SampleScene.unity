@@ -274,13 +274,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 73388591}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41a005a3a4bf1bd42ab673ef92e9d02d, type: 3}
+  m_Script: {fileID: 11500000, guid: 6b915a3af501871478a9c6fa98558a83, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Tower
+  m_EditorClassIdentifier: Assembly-CSharp::TowerCrossbow
+  _attackCooldown: 1.2
   _currentEnemy: {fileID: 0}
   _towerHead: {fileID: 7896448551278514503}
   _rotationSpeed: 10
-  _attackRange: 2.2
+  _attackRange: 3.5
   _enemyLayerMask:
     serializedVersion: 2
     m_Bits: 128
@@ -5135,8 +5136,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyManager
   _currentWave:
-    BasicEnemy: 0
-    FastEnemy: 0
+    BasicEnemy: 4
+    FastEnemy: 2
   _enemiesToCreate: []
   _spawnCooldown: 3
   _basicEnemies: {fileID: 3635608208385800503, guid: b9417220713050c4991d5c6c49ce6389, type: 3}

@@ -1,41 +1,90 @@
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class Tower : MonoBehaviour
 {
-    [SerializeField] private Transform _currentEnemy;
-    [SerializeField] private Transform _towerHead;
-    [SerializeField] private float _rotationSpeed;
-    [SerializeField] private float _attackRange = 1.5f;
-    [SerializeField]private LayerMask _enemyLayerMask;
+    [SerializeField] protected float _attackCooldown;
+    protected float _lastTimeAttacked;
+    [SerializeField] protected Transform _currentEnemy;
+    [SerializeField] protected Transform _towerHead;
+    [SerializeField] protected float _rotationSpeed;
+    [SerializeField] protected float _attackRange = 1.5f;
+    [SerializeField] protected LayerMask _enemyLayerMask;
+    private Tween _rotationTween;
 
-    private void Update()
+    protected virtual void Update()
     {
         if(_currentEnemy == null)
         {
             _currentEnemy = FindEnemyWhithinRange();
             return;
         }
-        
-        if(_currentEnemy != null)
+
+        if(Vector3.Distance(transform.position, _currentEnemy.position) > _attackRange)
         {
-            RotateTowardsEnemy();
+            KillRotationTween();
+            _currentEnemy = null;
+            return;
+        }
+
+        RotateTowardsEnemy();
+
+        if(CanAttack())
+        {
+            Attack();
+        }
+    }
+    
+    protected virtual void Attack()
+    {
+        Debug.Log("Attacking enemy");
+    }
+
+    protected virtual bool CanAttack()
+    {
+        if(Time.time > _lastTimeAttacked + _attackCooldown)
+        {
+            _lastTimeAttacked = Time.time;
+            return true;
+        }
+        return false;
+    }
+
+    protected void RotateTowardsEnemy()
+    {
+        if(_currentEnemy == null || _towerHead == null) return;
+
+        Vector3 direction = _currentEnemy.position - _towerHead.position;
+        if(direction.sqrMagnitude < 0.001f) return;
+
+        if(_rotationTween != null && _rotationTween.IsActive())
+            return;
+
+        _rotationTween = _towerHead
+            .DOLookAt(_currentEnemy.position, 1f / _rotationSpeed)
+            .SetEase(Ease.Linear);
+    }
+
+    private void KillRotationTween()
+    {
+        if(_rotationTween != null)
+        {
+            _rotationTween.Kill();
+            _rotationTween = null;
         }
     }
 
-
-    private void RotateTowardsEnemy()
+    protected virtual void OnDestroy()
     {
-        Vector3 directionToEnemy = _currentEnemy.position - _towerHead.position;
-        Quaternion lookRotation = Quaternion.LookRotation(directionToEnemy);
-        Vector3 rotation = Quaternion.Lerp(_towerHead.rotation, lookRotation, Time.deltaTime * _rotationSpeed).eulerAngles;
-        _towerHead.rotation = Quaternion.Euler(rotation);
+        KillRotationTween();
     }
 
-    private Transform FindEnemyWhithinRange()
+    protected virtual Transform FindEnemyWhithinRange()
     {
         List<Transform> possibleTargets = new List<Transform>();
         Collider[] enemiesAround = Physics.OverlapSphere(transform.position, _attackRange, _enemyLayerMask);
+        
         foreach(Collider enemy in enemiesAround)
         {
             possibleTargets.Add(enemy.transform);
@@ -43,11 +92,17 @@ public class Tower : MonoBehaviour
 
         if (possibleTargets.Count == 0)
         {
-            return null;
+            return null;        
         }
 
         int randomIndex = Random.Range(0, possibleTargets.Count);
         
         return possibleTargets[randomIndex];
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, _attackRange);
     }
 }

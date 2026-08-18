@@ -5,17 +5,16 @@ public class TowerCrossbow : Tower
 {
    [SerializeField] private Transform _gunPoint;
 
-    protected override void Update()
+    protected override void Attack()
     {
-        base.Update();
-        
         if (_currentEnemy == null) return;
 
         Vector3 directionToEnemy = DiretionToEnemy(_gunPoint);
 
         if(Physics.Raycast(_gunPoint.position, directionToEnemy, out RaycastHit hitInfo, Mathf.Infinity))
         {
+            _towerHead.forward = directionToEnemy;
             Debug.DrawLine(_gunPoint.position, hitInfo.point, Color.red);
         }
-    }
+    }   
 }

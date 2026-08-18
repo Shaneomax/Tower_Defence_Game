@@ -1,9 +1,21 @@
+using System;
 using UnityEngine;
 
 public class TowerCrossbow : Tower
 {
-    override protected void Attack()
+   [SerializeField] private Transform _gunPoint;
+
+    protected override void Update()
     {
-        Debug.Log("Attacking enemy: " + _currentEnemy.name);
+        base.Update();
+        
+        if (_currentEnemy == null) return;
+
+        Vector3 directionToEnemy = DiretionToEnemy(_gunPoint);
+
+        if(Physics.Raycast(_gunPoint.position, directionToEnemy, out RaycastHit hitInfo, Mathf.Infinity))
+        {
+            Debug.DrawLine(_gunPoint.position, hitInfo.point, Color.red);
+        }
     }
 }

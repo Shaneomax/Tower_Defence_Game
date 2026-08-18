@@ -53,18 +53,20 @@ public class Tower : MonoBehaviour
 
     protected void RotateTowardsEnemy()
     {
-        if(_currentEnemy == null || _towerHead == null) return;
+        if(_currentEnemy == null || _towerHead == null) 
+           return;
 
         Vector3 direction = _currentEnemy.position - _towerHead.position;
-        if(direction.sqrMagnitude < 0.001f) return;
+
+        if(direction.sqrMagnitude < 0.001f)
+            return;
 
         if(_rotationTween != null && _rotationTween.IsActive())
             return;
 
-        _rotationTween = _towerHead
-            .DOLookAt(_currentEnemy.position, 1f / _rotationSpeed)
-            .SetEase(Ease.Linear);
+        _rotationTween = _towerHead.DOLookAt(_currentEnemy.position, 1f / _rotationSpeed).SetEase(Ease.Linear);
     }
+
 
     private void KillRotationTween()
     {
@@ -78,6 +80,11 @@ public class Tower : MonoBehaviour
     protected virtual void OnDestroy()
     {
         KillRotationTween();
+    }
+
+    protected Vector3 DiretionToEnemy(Transform startPoint)
+    {
+        return (_currentEnemy.position - startPoint.position).normalized;
     }
 
     protected virtual Transform FindEnemyWhithinRange()

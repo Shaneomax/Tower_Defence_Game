@@ -5,7 +5,7 @@ using UnityEngine;
 public class WaveDetails
 {
     public int BasicEnemy;
-    public float FastEnemy;
+    public int FastEnemy;
 }
 
 public class EnemyManager : MonoBehaviour

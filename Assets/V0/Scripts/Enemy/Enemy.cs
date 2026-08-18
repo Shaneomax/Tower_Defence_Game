@@ -4,7 +4,8 @@ using UnityEngine.AI;
 public class Enemy : MonoBehaviour
 {
     private NavMeshAgent _agent;
-    [SerializeField] private Transform[] _wayPoint;
+    [SerializeField] private Transform[] _wayPoints;
+    [SerializeField]private WaypointManager _waypointManager;
     private int _wayPointIndex;
     private float _turnSpeed = 10f;
 
@@ -13,6 +14,11 @@ public class Enemy : MonoBehaviour
         _agent = GetComponent<NavMeshAgent>();
         _agent.updateRotation = false;
         _agent.avoidancePriority =(int)_agent.speed * 10;
+    }
+
+    private void Start()
+    {
+       _wayPoints = _waypointManager.GetWaypoints();
     }
 
     private void Update()
@@ -27,12 +33,12 @@ public class Enemy : MonoBehaviour
 
     private Vector3 GetNextWaypoint()
     {
-        if(_wayPointIndex >= _wayPoint.Length)
+        if(_wayPointIndex >= _wayPoints.Length)
         {
             return transform.position;
         }
 
-        Vector3 targetPoint = _wayPoint[_wayPointIndex].position;
+        Vector3 targetPoint = _wayPoints[_wayPointIndex].position;
         _wayPointIndex++;
 
         return targetPoint;

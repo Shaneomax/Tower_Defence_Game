@@ -240,6 +240,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 73388592}
+  - component: {fileID: 73388593}
   m_Layer: 0
   m_Name: TowerCrossbow
   m_TagString: Untagged
@@ -264,6 +265,25 @@ Transform:
   - {fileID: 3153688718169185196}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &73388593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 73388591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41a005a3a4bf1bd42ab673ef92e9d02d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Tower
+  _currentEnemy: {fileID: 0}
+  _towerHead: {fileID: 7896448551278514503}
+  _rotationSpeed: 10
+  _attackRange: 2.2
+  _enemyLayerMask:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!1 &80526499
 GameObject:
   m_ObjectHideFlags: 0
@@ -5115,8 +5135,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyManager
   _currentWave:
-    BasicEnemy: 4
-    FastEnemy: 2
+    BasicEnemy: 0
+    FastEnemy: 0
   _enemiesToCreate: []
   _spawnCooldown: 3
   _basicEnemies: {fileID: 3635608208385800503, guid: b9417220713050c4991d5c6c49ce6389, type: 3}
@@ -5330,7 +5350,6 @@ Transform:
   m_Children:
   - {fileID: 8616141850417059260}
   - {fileID: 3058802336662355122}
-  - {fileID: 6112905223869158195}
   - {fileID: 7896448551278514503}
   m_Father: {fileID: 73388592}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5763,12 +5782,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5311949323184873620}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.00017183303, y: 0.42612013, z: 0.00015135713}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3392515626239865120}
+  m_Father: {fileID: 7896448551278514503}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &6707328997758907618
 MeshRenderer:
@@ -5906,7 +5925,8 @@ Transform:
   m_LocalPosition: {x: -0.00017183303, y: 0.42612013, z: 0.00015135713}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 6112905223869158195}
   m_Father: {fileID: 3392515626239865120}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &8616141850417059260

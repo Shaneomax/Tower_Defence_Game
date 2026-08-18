@@ -118,7 +118,7 @@ GameObject:
   - component: {fileID: 2661580324170968509}
   - component: {fileID: 956137333122182720}
   - component: {fileID: 7755351555295301418}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Enemy_Basic
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -175,15 +175,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f709a85be76a1d48ac47ca5465d0ffa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
-  _wayPoint:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  _wayPoints: []
 --- !u!54 &956137333122182720
 Rigidbody:
   m_ObjectHideFlags: 0

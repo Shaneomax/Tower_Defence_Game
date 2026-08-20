@@ -13,6 +13,11 @@ public class Tower : MonoBehaviour
     [SerializeField] protected LayerMask _enemyLayerMask;
     private Tween _rotationTween;
 
+    protected virtual void Awake()
+    {
+        
+    }
+
     protected virtual void Update()
     {
         if(_currentEnemy == null)

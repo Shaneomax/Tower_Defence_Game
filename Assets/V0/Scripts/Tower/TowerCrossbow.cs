@@ -23,7 +23,8 @@ public class TowerCrossbow : Tower
             _towerHead.forward = directionToEnemy;
             Debug.DrawLine(_gunPoint.position, hitInfo.point, Color.red);
 
-            _visuals.EnableAttackVisuals(_gunPoint.position, hitInfo.point);
+            _visuals.PlayAttackFX(_gunPoint.position, hitInfo.point);
+            _visuals.PlayReloadFX(_attackCooldown);
         }
     }   
 }

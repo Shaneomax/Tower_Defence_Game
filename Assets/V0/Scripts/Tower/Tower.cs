@@ -11,6 +11,7 @@ public class Tower : MonoBehaviour
     [SerializeField] protected float _rotationSpeed;
     [SerializeField] protected float _attackRange = 1.5f;
     [SerializeField] protected LayerMask _enemyLayerMask;
+    private bool _canRotate;
     private Tween _rotationTween;
 
     protected virtual void Awake()
@@ -56,8 +57,16 @@ public class Tower : MonoBehaviour
         return false;
     }
 
+    public void EnableRotation(bool enable)
+    {
+        _canRotate = enable;
+    }
+
     protected void RotateTowardsEnemy()
     {
+        if(_canRotate == false)
+            return;
+
         if(_currentEnemy == null || _towerHead == null) 
            return;
 
